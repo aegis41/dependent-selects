@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="options.js"></script>
+    <script src="main.js"></script>
+    <title>Dependent Selects</title>
+</head>
+
+<body>
+    <select class="account" name="" id=""></select>
+    <select class="client" name="" id=""></select>
+    <select class="franchise" name="" id=""></select>
+    <select class="location" name="" id=""></select>
+    <button class="reset">Reset</button>
+</body>
+
+</html>
+<script>
+    // *** Element Selection *** //
+    const accountSelect = document.querySelector('.account');
+    const clientSelect = document.querySelector('.client');
+    const franchiseSelect = document.querySelector('.franchise');
+    const locationSelect = document.querySelector('.location');
+    const resetButton = document.querySelector('.reset');
+
+    // *** Event Listeners *** //
+    accountSelect.addEventListener('change', (event) => {
+        handleChange(clientSelect, event, clients, "accountID");
+    });
+    clientSelect.addEventListener('change', (event) => {
+        handleChange(franchiseSelect, event, franchises, "clientID");
+    });
+    franchiseSelect.addEventListener('change', (event) => {
+        handleChange(locationSelect, event, locations, "franchiseID");
+    });
+    // locationSelect.addEventListener('change', (event) => {
+    //     console.log("Location changed");
+    // });
+    resetButton.addEventListener('click', (event) => {
+        resetSelect(accountSelect, accounts);
+        resetSelect(clientSelect, clients);
+        resetSelect(franchiseSelect, franchises);
+        resetSelect(locationSelect, locations);
+    });
+
+    // *** Initial Select Fills *** //
+    fillSelect(accountSelect, accounts);
+    fillSelect(clientSelect, clients);
+    fillSelect(franchiseSelect, franchises);
+    fillSelect(locationSelect, locations);
+</script>
