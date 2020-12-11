@@ -12,6 +12,7 @@
     <select class="client" name="" id=""></select>
     <select class="franchise" name="" id=""></select>
     <select class="location" name="" id=""></select>
+    <button class="reset">Reset</button>
 </body>
 
 </html>
@@ -198,24 +199,30 @@
         for (i = L; i >= 0; i--) {
             selectElement.remove(i);
         }
-    }
+    };
 
     let remapOptions = function (options, filterValue, attrName) {
         if (filterValue.length === 1)
             return options.filter(option => option[attrName] === filterValue[0]);
-    }
+    };
 
     let handleChange = function (selectElement, event, optionsArray, filterAttr) {
         let IDs = [parseInt(event.target.value)];
         let newOptions = remapOptions(optionsArray, IDs, filterAttr);
         emptySelect(selectElement);
         fillSelect(selectElement, newOptions);
-    }
+    };
+
+    let resetSelect = function (selectElement, optionsArray) {
+        emptySelect(selectElement);
+        fillSelect(selectElement, optionsArray);
+    };
 
     const accountSelect = document.querySelector('.account');
     const clientSelect = document.querySelector('.client');
     const franchiseSelect = document.querySelector('.franchise');
     const locationSelect = document.querySelector('.location');
+    const resetButton = document.querySelector('.reset');
 
     accountSelect.addEventListener('change', (event) => {
         handleChange(clientSelect, event, clients, "accountID");
@@ -229,12 +236,15 @@
     // locationSelect.addEventListener('change', (event) => {
     //     console.log("Location changed");
     // });
+    resetButton.addEventListener('click', (event) => {
+        resetSelect(accountSelect, accounts);
+        resetSelect(clientSelect, clients);
+        resetSelect(franchiseSelect, franchises);
+        resetSelect(locationSelect, locations);
+    });
 
     fillSelect(accountSelect, accounts);
     fillSelect(clientSelect, clients);
     fillSelect(franchiseSelect, franchises);
     fillSelect(locationSelect, locations);
-
-
-
 </script>
